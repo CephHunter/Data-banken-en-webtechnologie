@@ -1,0 +1,140 @@
+{
+    "Back to the Future": {
+        "link": "https://www.imdb.com/title/tt0088763/?ref_=adv_li_tt",
+        "jaar": "1985",
+        "land": "USA",
+        "inhoud": "Marty McFly, a 17-year-old high school student, is accidentally sent thirty years into the past in a time-traveling DeLorean invented by his close friend, the maverick scientist Doc Brown.",
+        "genres": ["Adventure", "Comedy", "Sci-Fi"],
+        "rating": "8.5",
+        "rollen": [
+            {
+                "rol": "Marty McFly",
+                "acteur": {
+                    "naam": "Michael J. Fox",
+                    "geboorte jaar": "1961",
+                    "sterf jaar": "",
+                    "land": "Canada"
+                }
+            },
+            {
+                "rol": "Dr. Emmett Brown",
+                "acteur": {
+                    "naam": "Christopher Lloyd ",
+                    "geboorte jaar": "1938",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "Lorraine Baines",
+                "acteur": {
+                    "naam": "Lea Thompson",
+                    "geboorte jaar": "1961",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "Biff Tannen",
+                "acteur": {
+                    "naam": "Thomas F. Wilson",
+                    "geboorte jaar": "1959",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            }
+        ]
+    },
+    "The Return of the Living Dead": {
+        "link": "https://www.imdb.com/title/tt0089907/?ref_=adv_li_tt",
+        "jaar": "1985",
+        "land": "USA",
+        "inhoud": "When two bumbling employees at a medical supply warehouse accidentally release a deadly gas into the air, the vapors cause the dead to rise again as zombies. ",
+        "genres": ["Comedy", "Horror", "Sci-Fi"],
+        "rating": "7.4",
+        "rollen": [
+            {
+                "rol": "Burt",
+                "acteur": {
+                    "naam": "Clu Gulager",
+                    "geboorte jaar": "1928",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "Frank",
+                "acteur": {
+                    "naam": "James Karen",
+                    "geboorte jaar": "1923",
+                    "sterf jaar": "2018",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "Ernie",
+                "acteur": {
+                    "naam": "Don Calfa",
+                    "geboorte jaar": "1339",
+                    "sterf jaar": "2016",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "Freddy",
+                "acteur": {
+                    "naam": "Thom Mathews",
+                    "geboorte jaar": "1958",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            }
+        ]
+    },
+    "Day of the Dead": {
+        "link": "https://www.imdb.com/title/tt0088993/?ref_=adv_li_tt",
+        "jaar": "1985",
+        "land": "USA",
+        "inhoud": "A small group of military officers and scientists dwell in an underground bunker as the world above is overrun by zombies.",
+        "genres": ["Horror", "Thriller"],
+        "rating": "7.2",
+        "rollen": [
+            {
+                "rol": "Sarah",
+                "acteur": {
+                    "naam": "Lori Cardille",
+                    "geboorte jaar": "1954",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "John",
+                "acteur": {
+                    "naam": "Terry Alexander",
+                    "geboorte jaar": "1947",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "Rhodes",
+                "acteur": {
+                    "naam": "Joseph Pilato",
+                    "geboorte jaar": "1949",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            },
+            {
+                "rol": "Bub",
+                "acteur": {
+                    "naam": "Sherman Howard",
+                    "geboorte jaar": "1949",
+                    "sterf jaar": "",
+                    "land": "USA"
+                }
+            }
+        ]
+    }
+}
