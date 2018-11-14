@@ -1,27 +1,13 @@
 import sqlite3
-import create_tables as ct
-
-# sql = """
-# CREATE TABLE `movies` (
-# 	`movie_id`	INTEGER NOT NULL,
-# 	`title`	TEXT NOT NULL,
-# 	PRIMARY KEY(`movie_id`)
-# );
-# """
+import os
 
 if __name__ == "__main__":
     from sys import argv
 
-    if len(argv) != 2:
-        print("Exited with error code 1")
-        exit(1)
-
-    db_file = argv[1]
-    db = sqlite3.connect(db_file)
-
+    db = sqlite3.connect('movies.db')
     cursor = db.cursor()
-    cursor.execute(ct.movies)
-    cursor.execute(ct.insert)
+    cursor.execute('pragma foreign_keys=ON')
+    script = open("create_tables.sql", "r").read()
+    cursor.executescript(script)
     db.commit()
-
     db.close()
