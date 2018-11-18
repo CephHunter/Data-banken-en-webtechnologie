@@ -4,7 +4,7 @@ app.debug = True
 
 @app.route("/")
 def render_static():
-    return "hello world"
+    return "hello world 2"
 
 @app.route("/help")
 def help():
