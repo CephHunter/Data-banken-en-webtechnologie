@@ -8,7 +8,7 @@ def render_static():
 
 @app.route("/help")
 def help():
-    return "there is no help"
+    return "there is no help2"
 
 @app.route("/hello/<name>")
 def person(name):
