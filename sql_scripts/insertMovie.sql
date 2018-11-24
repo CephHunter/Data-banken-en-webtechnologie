@@ -1,0 +1,1 @@
+INSERT INTO movies VALUES (NULL, ?, ?, ?, ?, ?)

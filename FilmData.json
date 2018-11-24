@@ -1,0 +1,158 @@
+[
+    {
+        "title": "Back to the Future",
+        "link": "https://www.imdb.com/title/tt0088763/?ref_=adv_li_tt",
+        "date_of_release": "1985",
+        "country": "USA",
+        "description": "Marty McFly, a 17-year-old high school student, is accidentally sent thirty years into the past in a time-traveling DeLorean invented by his close friend, the maverick scientist Doc Brown.",
+        "genres": ["Adventure", "Comedy", "Sci-Fi"],
+        "rating": "8.5",
+        "budget": 19000000,
+        "roles": [
+            {
+                "role": "Marty McFly",
+                "actor": {
+                    "name": "Michael J. Fox",
+                    "year_of_birth": "1961",
+                    "year_of_decease": "",
+                    "country": "Canada",
+                    "gender": "Male"
+                }
+            },
+            {
+                "role": "Dr. Emmett Brown",
+                "actor": {
+                    "name": "Christopher Lloyd ",
+                    "year_of_birth": "1938",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            },
+            {
+                "role": "Lorraine Baines",
+                "actor": {
+                    "name": "Lea Thompson",
+                    "year_of_birth": "1961",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Female"
+                }
+            },
+            {
+                "role": "Biff Tannen",
+                "actor": {
+                    "name": "Thomas F. Wilson",
+                    "year_of_birth": "1959",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            }
+        ]
+    },
+    {
+        "title": "The Return of the Living Dead",
+        "link": "https://www.imdb.com/title/tt0089907/?ref_=adv_li_tt",
+        "date_of_release": "1985",
+        "country": "USA",
+        "description": "When two bumbling employees at a medical supply warehouse accidentally release a deadly gas into the air, the vapors cause the dead to rise again as zombies. ",
+        "genres": ["Comedy", "Horror", "Sci-Fi"],
+        "rating": "7.4",
+        "budget": 14200000,
+        "roles": [
+            {
+                "role": "Burt",
+                "actor": {
+                    "name": "Clu Gulager",
+                    "year_of_birth": "1928",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            },
+            {
+                "role": "Frank",
+                "actor": {
+                    "name": "James Karen",
+                    "year_of_birth": "1923",
+                    "year_of_decease": "2018",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            },
+            {
+                "role": "Ernie",
+                "actor": {
+                    "name": "Don Calfa",
+                    "year_of_birth": "1939",
+                    "year_of_decease": "2016",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            },
+            {
+                "role": "Freddy",
+                "actor": {
+                    "name": "Thom Mathews",
+                    "year_of_birth": "1958",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            }
+        ]
+    },
+    {
+        "title": "Day of the Dead",
+        "link": "https://www.imdb.com/title/tt0088993/?ref_=adv_li_tt",
+        "date_of_release": "1985",
+        "country": "USA",
+        "description": "A small group of military officers and scientists dwell in an underground bunker as the world above is overrun by zombies.",
+        "genres": ["Horror", "Thriller"],
+        "rating": "7.2",
+        "budget": 34000000,
+        "roles": [
+            {
+                "role": "Sarah",
+                "actor": {
+                    "name": "Lori Cardille",
+                    "year_of_birth": "1954",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Female"
+                }
+            },
+            {
+                "role": "John",
+                "actor": {
+                    "name": "Terry Alexander",
+                    "year_of_birth": "1947",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            },
+            {
+                "role": "Rhodes",
+                "actor": {
+                    "name": "Joseph Pilato",
+                    "year_of_birth": "1949",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            },
+            {
+                "role": "Bub",
+                "actor": {
+                    "name": "Sherman Howard",
+                    "year_of_birth": "1949",
+                    "year_of_decease": "",
+                    "country": "USA",
+                    "gender": "Male"
+                }
+            }
+        ]
+    }
+]
