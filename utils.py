@@ -5,7 +5,7 @@ import sqlite3
 rootpath = os.path.dirname(__file__) + "\\"
 sqlpath = rootpath + "sql_scripts\\"
 templatepath = rootpath + "templates\\"
-databaseFile = rootpath + 'filmdata.db'
+databaseFile = rootpath + "filmdata.db"
 
 
 def runScript(scriptname):

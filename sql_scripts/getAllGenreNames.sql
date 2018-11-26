@@ -1,0 +1,1 @@
+SELECT genre_name FROM genres

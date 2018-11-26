@@ -1,0 +1,32 @@
+html,
+body {
+    height: 100%;
+}
+
+#page-header {
+    height:100px;
+    background-color:#184183;
+    margin-bottom: 2em;
+}
+
+#page-header #logo {
+    background-image: url("/images/logo.png");
+    background-repeat: no-repeat;
+    background-size: 70px;
+    height: 70px;
+    position: relative;
+    top: 15px;
+    left: 50px;
+}
+
+#page-header #logo::after {
+    content: "Polis";
+    color: #fff;
+    position: relative;
+    font-size: 40px;
+    left: 70px;
+}
+
+#searchFilm [type="submit"] {
+    margin-top: 1em;
+}

@@ -1,0 +1,43 @@
+{% extends "boilerplates/basePage.html" %}
+{% block title %}Form test page{% endblock %}
+{% block head %}<script type="text/javascript" src="/js/homePage.js"></script>{% endblock %}
+{% block body %}
+    {% include "boilerplates/pageHeader.html" %}
+    <div class="container">
+        <form id="searchFilm" method="GET">
+            <h2>Search</h2>
+            <div class="form-group">
+                <label for="titleSearch">Title search</label>
+                <input type="text" class="form-control" id="titleSearch" name="titleSearch">
+            </div>
+            <fieldset id="genre-select">
+                <label for="genre-select">Genre</label>
+                <br>
+                {% for genre in genres %}
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input genre-select-item" id="{{genre[0]}}" name="{{genre[0]}}">
+                        <label class="form-check-label" for="{{genre[0]}}">{{genre[0]}}</label>
+                    </div>
+                {% endfor %}
+                <button type="button" class="btn btn-success btn-sm" onclick="selectAllGenres()">Select all</button>
+                <button type="button" class="btn btn-success btn-sm" onclick="deSelectAllGenres()">Remove all</button>
+            </fieldset>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="container">
+        {% if linkParams %}
+            <table border = 1>
+                {% for key, value in linkParams.items() %}
+                    <tr>
+                        <th> {{ key }} </th>
+                        <td> {{ value }} </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+    <div class="container">
+        {{searchResult}}
+    </div>
+{% endblock %}
