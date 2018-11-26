@@ -36,7 +36,6 @@ def insertData(scriptname, *args):
     db.commit()
     db.close()
 
-
 def getData(scriptname, *args):
     """Execute a single select SQL query and return the result.
     

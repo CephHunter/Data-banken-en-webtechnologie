@@ -12,7 +12,7 @@ if __name__ == "__main__":
     filmdata = json.loads(filmdata)
     for movie in filmdata:
         insertData("insertMovie.sql", (movie["title"], movie["description"],
-                                       movie["country"], movie["date_of_release"], movie["budget"]))
+                                       movie["country"], movie["date_of_release"], movie["budget"], movie["image"]))
         movie_id = getData("getMovieID.sql", movie["title"])[0][0]
 
         for genre in movie["genres"]:
@@ -22,6 +22,7 @@ if __name__ == "__main__":
         for role in movie["roles"]:
             actor = role["actor"]
             insertData("insertActor.sql", (actor["name"], actor["gender"],
-                                           actor["country"], actor["year_of_birth"], actor["year_of_decease"]))
+                                           actor["country"], actor["year_of_birth"],
+                                           actor["year_of_decease"], actor["image"]))
             actor_id = getData("getActorID.sql", actor["name"])[0][0]
             insertData("insertRole.sql", (movie_id, role["role"], actor_id))

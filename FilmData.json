@@ -8,6 +8,7 @@
         "genres": ["Adventure", "Comedy", "Sci-Fi"],
         "rating": "8.5",
         "budget": 19000000,
+        "image": "/images/Back_to_the_Future.png",
         "roles": [
             {
                 "role": "Marty McFly",
@@ -16,7 +17,8 @@
                     "year_of_birth": "1961",
                     "year_of_decease": "",
                     "country": "Canada",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             },
             {
@@ -26,7 +28,8 @@
                     "year_of_birth": "1938",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             },
             {
@@ -36,7 +39,8 @@
                     "year_of_birth": "1961",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Female"
+                    "gender": "Female",
+                    "image": ""
                 }
             },
             {
@@ -46,7 +50,8 @@
                     "year_of_birth": "1959",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             }
         ]
@@ -60,6 +65,7 @@
         "genres": ["Comedy", "Horror", "Sci-Fi"],
         "rating": "7.4",
         "budget": 14200000,
+        "image": "/images/The_Return_of_the_Living_Dead.png",
         "roles": [
             {
                 "role": "Burt",
@@ -68,7 +74,8 @@
                     "year_of_birth": "1928",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             },
             {
@@ -78,7 +85,8 @@
                     "year_of_birth": "1923",
                     "year_of_decease": "2018",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             },
             {
@@ -88,7 +96,8 @@
                     "year_of_birth": "1939",
                     "year_of_decease": "2016",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             },
             {
@@ -98,7 +107,8 @@
                     "year_of_birth": "1958",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             }
         ]
@@ -112,6 +122,7 @@
         "genres": ["Horror", "Thriller"],
         "rating": "7.2",
         "budget": 34000000,
+        "image": "/images/Day_of_the_Dead.png",
         "roles": [
             {
                 "role": "Sarah",
@@ -120,7 +131,8 @@
                     "year_of_birth": "1954",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Female"
+                    "gender": "Female",
+                    "image": ""
                 }
             },
             {
@@ -130,7 +142,8 @@
                     "year_of_birth": "1947",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             },
             {
@@ -140,7 +153,8 @@
                     "year_of_birth": "1949",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             },
             {
@@ -150,7 +164,8 @@
                     "year_of_birth": "1949",
                     "year_of_decease": "",
                     "country": "USA",
-                    "gender": "Male"
+                    "gender": "Male",
+                    "image": ""
                 }
             }
         ]

@@ -1,1 +1,1 @@
-INSERT INTO actors VALUES (NULL, ?, ?, ?, ?, ?)
+INSERT INTO actors VALUES (NULL, ?, ?, ?, ?, ?, ?)

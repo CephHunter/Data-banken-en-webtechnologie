@@ -16,7 +16,7 @@ $("document").ready(function() {
     for (let i = 0; i < URLVariables.length; i++) {
         let param = URLVariables[i].split('=');
         if (param[0] === "titleSearch") {
-            $("#"+param[0]).prop("value", param[1]);
+            $("#"+param[0]).prop("value", param[1].replace(/\+/g, " "));
         } else {
             $("#"+param[0]).prop("checked", true);
         }

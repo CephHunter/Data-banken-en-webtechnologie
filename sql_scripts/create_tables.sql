@@ -11,12 +11,13 @@ DROP TABLE IF EXISTS comments;
 DROP TABLE IF EXISTS friendships;
 
 CREATE TABLE IF NOT EXISTS movies (
-    movie_id      INTEGER NOT NULL PRIMARY KEY,
-    title         TEXT NOT NULL,
-    [description] TEXT NOT NULL,
-    country       TEXT NOT NULL,
-    releaseyear   INTEGER NOT NULL,
-    budget        INTEGER NOT NULL
+    movie_id        INTEGER NOT NULL PRIMARY KEY,
+    title           TEXT NOT NULL,
+    [description]   TEXT NOT NULL,
+    country         TEXT NOT NULL,
+    releaseyear     INTEGER NOT NULL,
+    budget          INTEGER NOT NULL,
+    [image]         TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS actors (
@@ -25,7 +26,8 @@ CREATE TABLE IF NOT EXISTS actors (
     gender          TEXT NOT NULL,
     country         TEXT NOT NULL,
     year_of_birth   INTEGER NOT NULL,
-    year_of_decease INTEGER NOT NULL
+    year_of_decease INTEGER NOT NULL,
+    [image]         TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -113,10 +115,3 @@ CREATE TABLE IF NOT EXISTS friendships (
 );
 
 COMMIT;
-
--- pragma foreign_keys=ON;
--- insert into movies values (NULL, 't', 't', 't', 1, 1), (NULL, 't', 't', 't', 1, 1), (NULL, 't', 't', 't', 1, 1);
--- insert into users values (NULL, 't', 't', 't', 't', 't', 't'), (NULL, 't', 't', 't', 't', 't', 't'), (NULL, 't', 't', 't', 't', 't', 't');
--- insert into reviews values (1, 1, 5, "", "t", "t"), (1, 3, 5, "", "t", "t");
--- insert into comments values (NULL, 1, 1), (NULL, 1, 1);
--- insert into friendships VALUES (1,3)

@@ -27,6 +27,43 @@ body {
     left: 70px;
 }
 
-#searchFilm [type="submit"] {
-    margin-top: 1em;
+.homepage-film-preview {
+    width: 300px;
+}
+
+.homepage-film-preview .image-box {
+    background-color: #777777;
+    height: 180px;
+    width: 100%;
+}
+
+.homepage-film-preview img {
+    max-height: 180px;
+    max-width: 100%;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.actor-details {
+    width: 220px;
+}
+
+.actor-details .image-box {
+    background-color: #777777;
+    height: 180px;
+    width: 100%;
+}
+
+.actor-details img {
+    max-height: 180px;
+    max-width: 100%;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+.movie-details-image {
+    width: auto;
+    max-height: 300px;
 }

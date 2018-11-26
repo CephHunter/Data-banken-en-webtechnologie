@@ -1,5 +1,5 @@
 {% extends "boilerplates/basePage.html" %}
-{% block title %}Form test page{% endblock %}
+{% block title %}VUBPolis{% endblock %}
 {% block head %}<script type="text/javascript" src="/js/homePage.js"></script>{% endblock %}
 {% block body %}
     {% include "boilerplates/pageHeader.html" %}
@@ -22,10 +22,10 @@
                 <button type="button" class="btn btn-success btn-sm" onclick="selectAllGenres()">Select all</button>
                 <button type="button" class="btn btn-success btn-sm" onclick="deSelectAllGenres()">Remove all</button>
             </fieldset>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
         </form>
     </div>
-    <div class="container">
+    {# <div class="container">
         {% if linkParams %}
             <table border = 1>
                 {% for key, value in linkParams.items() %}
@@ -36,8 +36,25 @@
                 {% endfor %}
             </table>
         {% endif %}
-    </div>
-    <div class="container">
+    </div> #}
+    {# <div class="container mt-3">
+        <h2>Result:</h2>
         {{searchResult}}
+    </div> #}
+    <div class="container mt-3">
+        <div class="d-flex flex-wrap">
+            {% for film in searchResult %}
+                <div class="card m-3 homepage-film-preview">
+                    <div class="image-box">
+                        <img class="card-img-top" alt="{{film[2]}}" src="{{film[2]}}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{film[0]}}</h5>
+                        <p class="card-text">{{film[1]}}</p>
+                        <a href="/Movie details/{{film[0]}}" class="btn btn-primary">View details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
