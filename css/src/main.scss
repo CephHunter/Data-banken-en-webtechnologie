@@ -1,0 +1,48 @@
+@import "pageHeader";
+@import "loginForm";
+
+html,
+body {
+    height: 100%;
+}
+
+.homepage-film-preview {
+    width: 300px;
+
+    .image-box {
+        background-color: #777777;
+        height: 180px;
+        width: 100%;
+    }
+
+    img {
+        max-height: 180px;
+        max-width: 100%;
+        width: auto;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+.actor-details {
+    width: 220px;
+
+    .image-box {
+        background-color: #777777;
+        height: 180px;
+        width: 100%;
+    }
+
+    img {
+        max-height: 180px;
+        max-width: 100%;
+        width: auto;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+.movie-details-image {
+    width: auto;
+    max-height: 300px;
+}

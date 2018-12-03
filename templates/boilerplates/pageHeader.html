@@ -1,3 +1,31 @@
-<div class="container-fluid" id="page-header">
+<!-- <div class="container-fluid" id="page-header">
     <div id="logo"></div>
-</div>
+    {% if user and user.alias %}
+        <p id="user_alias">{{user.alias}}</p>
+        <a class="btn-sm btn-info" href="/logout" role="button" id="logout-btn">Log out</a>
+    {% else %}
+        <a class="btn-sm btn-info" href="/Login" role="button" id="login-btn">Login</a>
+    {% endif %}
+</div> -->
+<nav class="navbar navbar-expand-sm navbar-dark" id="page-header">
+    <a class="navbar-brand" href="/Homepage"></a>
+    <button class="navbar-toggler btn-info" type="button" data-toggle="collapse" data-target="#navbarToggler"
+        aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse pl-5" id="navbarToggler">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/Homepage">Home</a>
+            </li>
+        </ul>
+        {% if user and user.alias %}
+            <fieldset>
+                <label id="user_alias" class="m-0" for="logout-btn">{{user.alias}}</label>
+                <a class="btn-sm btn-info" href="/logout" role="button" id="logout-btn">Log out</a>
+            </fieldset>
+        {% else %}
+            <a class="btn-sm btn-info" href="/Login" role="button" id="login-btn">Login</a>
+        {% endif %}
+    </div>
+</nav>

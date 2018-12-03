@@ -1,0 +1,121 @@
+{% extends "boilerplates/basePage.html" %}
+{% block head %}<script type="text/javascript" src="/js/loginFrom.js"></script>{% endblock %}
+{% block title %}Form test page{% endblock %}
+{% block body %}
+    {% include "boilerplates/pageHeader.html" %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card card-login">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="#" class="active" id="login-form-link">Login</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="#" id="register-form-link">Register</a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="login-form" action="/Login/process" method="post" role="form" style="display: block;">
+                                    <div class="form-group">
+                                        <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required>
+                                    </div>
+                                    <!-- <div class="form-group text-center">
+                                        <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                        <label for="remember"> Remember Me</label>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 offset-sm-3">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                                <input type="hidden" value="{{ next or '' }}" name="next">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form id="register-form" action="/Register/process" method="post" role="form" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="male">Gender:</label>
+                                        <div class="form-check form-check-inline ml-3">
+                                            <input type="radio" class="form-check-input" name="gender" value="male" id="gender1" required>
+                                            <lable>Male</lable>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" name="gender" value="female" id="gender2" required>
+                                            <lable>female</lable>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="birthday1">Birthday:</label>
+                                        <select name="day" id="birthday1" required>
+                                            <option value="" selected="selected">Choose...</option>
+                                            {% for x in range(1, 32) %}
+                                            <option value="{{x}}">{{x}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <select name="month" id="birthday2" required>
+                                            <option value="" selected="selected">Choose...</option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                        <select name="year" id="birthday3" required>
+                                            <option value="" selected="selected">Choose...</option>
+                                            {% for x in range(2018, 1900, -1) %}
+                                            <option value="{{x}}">{{x}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">Country:</label>
+                                        <input type="text" name="country" id="country" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 offset-sm-3">
+                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                                <input type="hidden" value="{{ next or '' }}" name="next">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

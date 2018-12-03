@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS actors (
 CREATE TABLE IF NOT EXISTS users (
     user_id       INTEGER NOT NULL PRIMARY KEY,
     alias         TEXT NOT NULL,
-    email         TEXT NOT NULL,
+    email         TEXT NOT NULL UNIQUE,
     [password]    TEXT NOT NULL,
     date_of_birth TEXT NOT NULL,
     gender        TEXT NOT NULL,
@@ -62,20 +62,20 @@ INSERT INTO genres (genre_name, [description])
     ("Thriller", "Should contain numerous sensational scenes or a narrative that is sensational or suspenseful. Note: not to be confused with Mystery or Horror, and should only sometimes be accompanied by one (or both). Subjective.");
 
 CREATE TABLE IF NOT EXISTS movie_genre (
-    movie_id  INTEGER NOT NULL REFERENCES movies (movie_id),
-    genre_id  INTEGER NOT NULL REFERENCES genres (genre_id),
+    movie_id  INTEGER NOT NULL REFERENCES movies (movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    genre_id  INTEGER NOT NULL REFERENCES genres (genre_id) ON DELETE RESTRICT ON UPDATE CASCADE,
     PRIMARY KEY (genre_id, movie_id)
 );
 
 CREATE TABLE IF NOT EXISTS roles (
-    movie_id  INTEGER NOT NULL REFERENCES movies (movie_id),
+    movie_id  INTEGER NOT NULL REFERENCES movies (movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
     [role]    TEXT NOT NULL,
-    actor_id  INTEGER NOT NULL REFERENCES actors (actor_id),
+    actor_id  INTEGER NOT NULL REFERENCES actors (actor_id) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (movie_id, [role])
 );
 
 CREATE TABLE IF NOT EXISTS movie_reception (
-    movie_id      INTEGER NOT NULL REFERENCES movies (movie_id),
+    movie_id      INTEGER NOT NULL REFERENCES movies (movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
     country       TEXT NOT NULL,
     release_date  TEXT NOT NULL,
     viewers       INTEGER NOT NULL,
@@ -84,8 +84,8 @@ CREATE TABLE IF NOT EXISTS movie_reception (
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
-    movie_id      INTEGER NOT NULL REFERENCES movies (movie_id),
-    user_id       INTEGER NOT NULL REFERENCES users (user_id),
+    movie_id      INTEGER NOT NULL REFERENCES movies (movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id       INTEGER NOT NULL REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     score         INTEGER NOT NULL,
     review        TEXT NOT NULL,
     create_date   TEXT NOT NULL,
@@ -94,19 +94,18 @@ CREATE TABLE IF NOT EXISTS reviews (
 );
 
 CREATE TABLE IF NOT EXISTS comments (
-    movie_id          INTEGER NOT NULL,
-    review_user_id    INTEGER NOT NULL,
-    user_id           INTEGER NOT NULL,
+    movie_id          INTEGER NOT NULL REFERENCES movies (movie_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    review_user_id    INTEGER NOT NULL REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    user_id           INTEGER NOT NULL REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     comment           TEXT NOT NULL,
     create_date       TEXT NOT NULL,
     edit_date         TEXT NOT NULL,
-    PRIMARY KEY (movie_id, review_user_id, user_id),
-    FOREIGN KEY (movie_id, review_user_id) REFERENCES reviews (movie_id, user_id)
+    PRIMARY KEY (movie_id, review_user_id, user_id)
 );
 
 CREATE TABLE IF NOT EXISTS friendships (
-    sender_user_id      INTEGER NOT NULL REFERENCES users (user_id),
-    receiver_user_id    INTEGER NOT NULL REFERENCES users (user_id),
+    sender_user_id      INTEGER NOT NULL REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    receiver_user_id    INTEGER NOT NULL REFERENCES users (user_id) ON DELETE CASCADE ON UPDATE CASCADE,
     date_send           TEXT NOT NULL,
     date_accepted       TEXT,
     date_canceled       TEXT,

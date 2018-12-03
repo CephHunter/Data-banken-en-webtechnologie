@@ -1,0 +1,25 @@
+{
+  "name": "databanken-en-webtechnologie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^8.3.0",
+    "gulp": "^4.0.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-rename": "^1.2.3",
+    "gulp-sourcemaps": "^2.6.4"
+  },
+  "scripts": {},
+  "browserslist": [
+    "defaults"
+  ],
+  "repository": {},
+  "author": "Pieter Partous",
+  "license": "MIT",
+  "bugs": {},
+  "homepage": ""
+}

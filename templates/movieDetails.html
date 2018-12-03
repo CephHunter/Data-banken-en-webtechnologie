@@ -13,45 +13,38 @@
         </p>
     </div>
     <div class="container">
-        <p>
-            <button class="btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Hide actors
-            </button>
-        </p>
-        <div class="collapse show" id="collapseExample">
-            <div class="d-flex flex-wrap">
-                {% for role in movieRoles %}
-                    <div class="card m-3 actor-details">
-                        <div class="image-box">
-                            <img class="card-img-top" alt="{{role[6]}}" src="{{role[6]}}">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{role[0]}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{role[1]}}</h6>
-                            <div class="card-text">
-                                <table>
-                                    <tr>
-                                        <td>Gender:</td>
-                                        <td>{{role[2]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Country:</td>
-                                        <td>{{role[3]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Date of birth:</td>
-                                        <td>{{role[4]}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Date of death:</td>
-                                        <td>{{role[5]}}</td>
-                                    </tr>
-                                </table>
-                            </div>
+        <div class="d-flex flex-wrap">
+            {% for role in movieRoles %}
+                <div class="card m-3 actor-details">
+                    <div class="image-box">
+                        <img class="card-img-top" alt="{{role[6]}}" src="{{role[6]}}">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{role[0]}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{role[1]}}</h6>
+                        <div class="card-text">
+                            <table>
+                                <tr>
+                                    <td>Gender:</td>
+                                    <td>{{role[2]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Country:</td>
+                                    <td>{{role[3]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of birth:</td>
+                                    <td>{{role[4]}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date of death:</td>
+                                    <td>{{role[5]}}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
     <div class="container">

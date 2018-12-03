@@ -1,0 +1,1 @@
+SELECT user_id, alias, email, [password], date_of_birth, gender, country FROM users WHERE email = ?

@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from flask_login import UserMixin
 
 # global variables
 rootpath = os.path.dirname(__file__) + "\\"
@@ -50,3 +51,28 @@ def getData(scriptname, *args):
     db.commit()
     db.close()
     return res
+
+class User(UserMixin):
+    def __init__(self, id, alias, email, password, birthday, gender, country):
+        self.id = id
+        self.alias = alias
+        self.email = email
+        self.password = password
+        self.birthday = birthday
+        self.gender = gender
+        self.country = country
+
+    def get_id(self):
+        return self.email
+
+    def __repr__(self):
+        return '%d/%s/%s' % (self.email, self.alias, self.password)
+
+    @classmethod
+    def get(cls, email):
+        userData = getData('getUserData.sql', email)
+        if userData:
+            userData = userData[0]
+            return cls(userData[0], userData[1], userData[2], userData[3],
+                        userData[4], userData[5], userData[6])
+        return None
