@@ -1,6 +1,9 @@
 import os
+import sys
 import sqlite3
+from flask import session
 from flask_login import UserMixin
+from datetime import datetime
 
 # global variables
 rootpath = os.path.dirname(__file__) + "\\"
@@ -66,7 +69,7 @@ class User(UserMixin):
         return self.email
 
     def __repr__(self):
-        return '%d/%s/%s' % (self.email, self.alias, self.password)
+        return 'id:%d, email:%s, alias:%s' % (self.id, self.email, self.alias)
 
     @classmethod
     def get(cls, email):
@@ -76,3 +79,14 @@ class User(UserMixin):
             return cls(userData[0], userData[1], userData[2], userData[3],
                         userData[4], userData[5], userData[6])
         return None
+
+
+def getLoggedInUser():
+    try:
+        return User.get(session['user_id'])
+    except:
+        return None
+
+def currentTime():
+    now = datetime.utcnow()
+    return now.strftime('%Y/%m/%d %H:%M:%S')

@@ -1,7 +1,5 @@
 from utils import *
 from passlib.hash import pbkdf2_sha256
+from datetime import datetime
 
-hash = pbkdf2_sha256.hash("password")
-
-print(hash)
-print(pbkdf2_sha256.verify("passworz", hash))
+print(datetime.utcnow())

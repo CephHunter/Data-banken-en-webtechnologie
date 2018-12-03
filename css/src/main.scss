@@ -1,5 +1,6 @@
 @import "pageHeader";
 @import "loginForm";
+@import "ratingStars";
 
 html,
 body {
@@ -45,4 +46,8 @@ body {
 .movie-details-image {
     width: auto;
     max-height: 300px;
+}
+
+.no-list-bulets li {
+    list-style-type: none;
 }

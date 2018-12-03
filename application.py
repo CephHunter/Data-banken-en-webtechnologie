@@ -1,5 +1,5 @@
 from flask import Flask, redirect, request, render_template, send_from_directory, url_for, Response, abort, flash, session
-from utils import runScript, insertData, getData, User
+from utils import runScript, insertData, getData, User, getLoggedInUser, currentTime
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from urllib.parse import urlparse, urljoin
 from passlib.hash import pbkdf2_sha256
@@ -37,23 +37,34 @@ def homePage():
     titleParam = '%{}%'.format(linkParams.get('titleSearch'))
     searchResult = getData('filmSearch.sql', titleParam, *genrePrams)
     # print(genrePrams, file=sys.stderr)
-    return render_template('index.html', genres=genres, searchResult=searchResult, user=session)
+    return render_template('index.html', user=getLoggedInUser(), genres=genres, searchResult=searchResult)
 
 
 @app.route('/Movie details/<path:filmTitle>')
-@login_required
 def movieDetails(filmTitle):
     movieDetails = getData('getMovieDetails.sql', filmTitle)[0]
     movieRoles = getData('getMovieRoles.sql', filmTitle)
     movieGenres = getData('getMovieGenres.sql', filmTitle)
-    return render_template('movieDetails.html', pageTitle=filmTitle, movieDetails=movieDetails,
-                           movieRoles=movieRoles, movieGenres=movieGenres, user=session)
+    reviews = getData('getReviews.sql', filmTitle)
+    user = getLoggedInUser()
+    userHasReview = True if user and [row for row in reviews if user.id == row[4]] else False
+    next = request.path
+    return render_template('movieDetails.html', user=user, pageTitle=filmTitle, movieDetails=movieDetails,
+                           movieRoles=movieRoles, movieGenres=movieGenres, next=next, reviews=reviews, userHasReview=userHasReview)
 
 
 @app.route('/Login')
 def login():
     next = get_redirect_target()
     return render_template('login.html', next=next)
+
+# somewhere to logout
+@app.route('/logout')
+@login_required
+def logout():
+    session.pop('_flashes', None)
+    logout_user()
+    return redirect_back('homePage')
 
 
 @app.route('/Login/process', methods=['POST'])
@@ -63,11 +74,6 @@ def processLogin():
     user = load_user(email)
     if user and pbkdf2_sha256.verify(password, user.password):
         login_user(user)
-        session['alias'] = user.alias
-        session['email'] = user.email
-        session['birthday'] = user.birthday
-        session['gender'] = user.gender
-        session['country'] = user.country
         return redirect_back('homePage')
     else:
         return abort(401)
@@ -91,6 +97,27 @@ def processRegister():
     return redirect(url_for('homePage'))
 
 
+@app.route('/addReview', methods=['POST'])
+@login_required
+def addReview():
+    movieTitle = request.form['movieTitle']
+    rating = request.form['rating']
+    reviewText = request.form['review-text']
+    movieID = getData('getMovieID.sql', movieTitle)
+    user = getLoggedInUser()
+    if not movieID:
+        return abort(422)
+    insertData('insertReview.sql', (movieID[0][0], user.id, rating, reviewText, currentTime(), ''))
+    return redirect_back(url_for('homePage'))
+
+@app.route('/deleteReview', methods=['POST'])
+@login_required
+def deleteReview():
+    movieTitle = request.form['movieTitle']
+    user_id = request.form['user_id']
+    getData('deleteReview.sql', user_id, movieTitle)
+    return redirect_back(url_for('homePage'))
+
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
@@ -105,24 +132,13 @@ def get_redirect_target():
             return target
 
 def redirect_back(endpoint, **values):
-    target = request.form['next']
+    try:
+        target = request.form['next']
+    except:
+        target = request.referrer
     if not target or not is_safe_url(target):
         target = url_for(endpoint, **values)
     return redirect(target)
-
-
-# somewhere to logout
-@app.route('/logout')
-@login_required
-def logout():
-    session.pop('_flashes', None)
-    session.pop('alias', None)
-    session.pop('email', None)
-    session.pop('birthday', None)
-    session.pop('country', None)
-    session.pop('gender', None)
-    logout_user()
-    return redirect(url_for('homePage'))
 
 
 # handle login failed
@@ -135,6 +151,11 @@ def page_not_found(e):
 @login_manager.user_loader
 def load_user(email):
     return User.get(email)
+
+# handle Unprocessable Entity
+@app.errorhandler(422)
+def Unprocessable_Entity (e):
+    return Response('<p>The request was well-formed but was unable to be followed due to semantic errors.</p>')
 
 
 @app.route('/css/<path:path>')

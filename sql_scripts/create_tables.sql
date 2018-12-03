@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS friendships;
 
 CREATE TABLE IF NOT EXISTS movies (
     movie_id        INTEGER NOT NULL PRIMARY KEY,
-    title           TEXT NOT NULL,
+    title           TEXT NOT NULL UNIQUE,
     [description]   TEXT NOT NULL,
     country         TEXT NOT NULL,
     releaseyear     INTEGER NOT NULL,
