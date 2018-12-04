@@ -11,7 +11,7 @@
             <li>Genres: {% for genre in movieGenres %}{{genre[0]}}, {% endfor %}</li>
             <li>Country: {{movieDetails[2]}}</li>
             <li>Year: {{movieDetails[3]}}</li>
-            <li>Budget: ${{movieDetails[4]}}</li>
+            <li>Budget: ${{ '{:,}'.format(movieDetails[4]) }}</li>
         </ul>
     </div>
     <div class="container">
@@ -114,7 +114,7 @@
                 </div>
                 {% if review[1] %}
                     <div class="card-body">
-                        <p class="card-text">{{review[1]}}</p>
+                        <p class="card-text review-text">{{review[1]}}</p>
                     </div>
                 {% endif %}
             </div>
