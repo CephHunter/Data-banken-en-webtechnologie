@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS actors (
 CREATE TABLE IF NOT EXISTS users (
     user_id       INTEGER NOT NULL PRIMARY KEY,
     alias         TEXT NOT NULL,
-    email         TEXT NOT NULL UNIQUE,
+    email         TEXT NOT NULL,
     [password]    TEXT NOT NULL,
     date_of_birth TEXT NOT NULL,
     gender        TEXT NOT NULL,

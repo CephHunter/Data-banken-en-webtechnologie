@@ -25,32 +25,16 @@
             <button type="submit" class="btn btn-primary mt-2">Submit</button>
         </form>
     </div>
-    <!-- {# <div class="container">
-        {% if linkParams %}
-            <table border = 1>
-                {% for key, value in linkParams.items() %}
-                    <tr>
-                        <th> {{ key }} </th>
-                        <td> {{ value }} </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-    </div> #}
-    {# <div class="container mt-3">
-        <h2>Result:</h2>
-        {{searchResult}}
-    </div> #} -->
     <div class="container mt-3">
         <div class="d-flex flex-wrap">
             {% for film in searchResult %}
                 <div class="card m-3 homepage-film-preview">
                     <div class="image-box">
-                        <img class="card-img-top" alt="{{film[2]}}" src="{{film[2]}}">
+                        <img class="card-img-top" alt="{{film[3]}}" src="{{film[3]}}">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{film[0]}}</h5>
-                        <p class="card-text">{{film[1]}}</p>
+                        <h5 class="card-title">{{film[1]}}</h5>
+                        <p class="card-text">{{film[2]}}</p>
                         <a href="/Movie details/{{film[0]}}" class="btn btn-primary">View details</a>
                     </div>
                 </div>

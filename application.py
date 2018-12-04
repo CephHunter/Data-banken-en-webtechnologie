@@ -40,16 +40,16 @@ def homePage():
     return render_template('index.html', user=getLoggedInUser(), genres=genres, searchResult=searchResult)
 
 
-@app.route('/Movie details/<path:filmTitle>')
-def movieDetails(filmTitle):
-    movieDetails = getData('getMovieDetails.sql', filmTitle)[0]
-    movieRoles = getData('getMovieRoles.sql', filmTitle)
-    movieGenres = getData('getMovieGenres.sql', filmTitle)
-    reviews = getData('getReviews.sql', filmTitle)
+@app.route('/Movie details/<int:movieID>')
+def movieDetails(movieID):
+    movieDetails = getData('getMovieDetails.sql', movieID)[0]
+    movieRoles = getData('getMovieRoles.sql', movieID)
+    movieGenres = getData('getMovieGenres.sql', movieID)
+    reviews = getData('getReviews.sql', movieID)
     user = getLoggedInUser()
     userHasReview = True if user and [row for row in reviews if user.id == row[4]] else False
     next = request.path
-    return render_template('movieDetails.html', user=user, pageTitle=filmTitle, movieDetails=movieDetails,
+    return render_template('movieDetails.html', user=user, movieDetails=movieDetails,
                            movieRoles=movieRoles, movieGenres=movieGenres, next=next, reviews=reviews, userHasReview=userHasReview)
 
 
@@ -100,22 +100,19 @@ def processRegister():
 @app.route('/addReview', methods=['POST'])
 @login_required
 def addReview():
-    movieTitle = request.form['movieTitle']
     rating = request.form['rating']
     reviewText = request.form['review-text']
-    movieID = getData('getMovieID.sql', movieTitle)
+    movieID = request.form['movieID']
     user = getLoggedInUser()
-    if not movieID:
-        return abort(422)
-    insertData('insertReview.sql', (movieID[0][0], user.id, rating, reviewText, currentTime(), ''))
+    insertData('insertReview.sql', (movieID, user.id, rating, reviewText, currentTime(), ''))
     return redirect_back(url_for('homePage'))
 
 @app.route('/deleteReview', methods=['POST'])
 @login_required
 def deleteReview():
-    movieTitle = request.form['movieTitle']
+    movieID = request.form['movieID']
     user_id = request.form['user_id']
-    getData('deleteReview.sql', user_id, movieTitle)
+    getData('deleteReview.sql', user_id, movieID)
     return redirect_back(url_for('homePage'))
 
 def is_safe_url(target):

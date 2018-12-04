@@ -1,4 +1,4 @@
-SELECT title, [description], [image]
+SELECT movie_id, title, [description], [image]
 FROM movies
 WHERE title LIKE ? AND movie_id IN (
     SELECT DISTINCT movie_id

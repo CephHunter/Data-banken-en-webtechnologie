@@ -1,3 +1,3 @@
-SELECT title, [description], country, releaseyear, budget, [image]
+SELECT title, [description], country, releaseyear, budget, [image], movie_id
 FROM movies
-WHERE title = ?
+WHERE movie_id = ?

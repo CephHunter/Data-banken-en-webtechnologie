@@ -1,5 +1,5 @@
 {% extends "boilerplates/basePage.html" %}
-{% block title %}{{pageTitle}}{% endblock %}
+{% block title %}{{movieDetails[0]}}{% endblock %}
 {# {% block head %}<script type="text/javascript" src="/js/review.js"></script>{% endblock %} #}
 {% block body %}
     {% include "boilerplates/pageHeader.html" %}
@@ -78,7 +78,7 @@
                         <div class="form-group">
                             <input type="submit" name="Review-submit" class="btn btn-success" value="Save">
                             <input type="hidden" value="{{ next or '' }}" name="next">
-                            <input type="hidden" value="{{movieDetails[0]}}" name="movieTitle">
+                            <input type="hidden" value="{{movieDetails[6]}}" name="movieID">
                         </div>
                     </form>
                 </div>
@@ -105,7 +105,7 @@
                             <span class="float-right ml-3">
                                 <input type="submit" name="delete-review" class="btn btn-sm btn-danger" value="Delete">
                                 <input type="hidden" value="{{ next or '' }}" name="next">
-                                <input type="hidden" value="{{movieDetails[0]}}" name="movieTitle">
+                                <input type="hidden" value="{{movieDetails[6]}}" name="movieID">
                                 <input type="hidden" value="{{user.id}}" name="user_id">
                             </span>
                         </form>
