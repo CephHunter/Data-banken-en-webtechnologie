@@ -1,0 +1,95 @@
+{% extends "boilerplates/basePage.html" %}
+{% block title %}{{movieDetails[0]}}{% endblock %}
+{% block head %}<script type="text/javascript" src="/js/editMovie.js"></script>{% endblock %}
+{% block body %}
+    {% include "boilerplates/pageHeader.html" %}
+    <div class="container">
+        <form method="post" role="form" style="display: block;">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Title" value="{{movieDetails[0]}}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="3" name="description" required>{{movieDetails[1]}}</textarea>
+            </div>
+            <label>Genres</label>
+            {% for genreName, genreID in allGenres %}
+                <div class="form-check ml-4">
+                    <input type="checkbox" class="form-check-input genre-select-item" id="{{genreName}}" name="genres[]" value="{{genreID}}">
+                    <label class="form-check-label" for="{{genreName}}">{{genreName}}</label>
+                </div>
+            {% endfor %}
+            <div class="form-group mt-3">
+                <label for="title">Release year</label>
+                <input type="text" name="release-year" id="release-year" class="form-control" placeholder="Release year" value="{{movieDetails[3]}}" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Release country</label>
+                <input type="text" name="country" id="country" class="form-control" placeholder="Country" value="{{movieDetails[2]}}" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Budget</label>
+                <input type="text" name="budget" id="budget" class="form-control" placeholder="budget" value="{{movieDetails[4]}}" required>
+            </div>
+            <label>Actors</label>
+            <div class="dynamic-inputs">
+                {% for role in movieRoles %}
+                    <div class="entry form-group">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Role name</label>
+                                        <input type="text" name="role{{loop.index}}" class="form-control form-group" placeholder="Role name" value="{{role[0]}}" required>
+                                    </div>
+                                    <div class="col">
+                                        <label>Actor name</label>
+                                        <input type="text" name="actor{{loop.index}}" class="form-control form-group" placeholder="Actor name" value="{{role[1]}}" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Gender</label>
+                                        <input type="text" name="gender{{loop.index}}" class="form-control form-group" placeholder="Gender" value="{{role[2]}}" required>
+                                    </div>
+                                    <div class="col">
+                                        <label>Country</label>
+                                        <input type="text" name="actor-country{{loop.index}}" class="form-control form-group" placeholder="Country" value="{{role[3]}}" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Birth year</label>
+                                        <input type="text" name="birthyear{{loop.index}}" class="form-control form-group" placeholder="Birth year" value="{{role[4]}}" required>
+                                    </div>
+                                    <div class="col">
+                                        <label>Year of decease</label>
+                                        <input type="text" name="deceaseyear{{loop.index}}" class="form-control form-group" placeholder="year of decease" value="{{role[5]}}">
+                                    </div>
+                                </div>
+                                {% if not loop.last %}
+                                    <button class="btn btn-sm btn-danger btn-remove float-right" type="button">Delete</button>
+                                {% else %}
+                                    <button class="btn btn-sm btn-success btn-add float-right" type="button">Add actor</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <input type="submit" name="submit" class="btn btn-success" value="Save">
+                <input type="hidden" value="{{ next or '' }}" name="next">
+            </div>
+        </form>
+        <hr>
+        {{movieDetails}}
+        <hr>
+        {{movieRoles}}
+        <hr>
+        {{movieGenres}}
+        <hr>
+        {{allGenres}}
+    </div>
+{% endblock %}

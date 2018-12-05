@@ -1,14 +1,15 @@
 {% extends "boilerplates/basePage.html" %}
 {% block title %}{{movieDetails[0]}}{% endblock %}
-{# {% block head %}<script type="text/javascript" src="/js/review.js"></script>{% endblock %} #}
+<!-- {% block head %}<script type="text/javascript" src="/js/review.js"></script>{% endblock %} -->
 {% block body %}
     {% include "boilerplates/pageHeader.html" %}
     <div class="container clearfix">
+        <a class="btn btn-primary float-right" href="Edit/{{movieDetails[6]}}" role="button">Edit</a>
         <h1>{{movieDetails[0]}}</h1>
         <img class="card-img-top movie-details-image m-2 float-right" alt="{{movieDetails[5]}}" src="{{movieDetails[5]}}">
         {{movieDetails[1]}}
         <ul class="mt-3 pl-0 no-list-bulets">
-            <li>Genres: {% for genre in movieGenres %}{{genre[0]}}, {% endfor %}</li>
+            <li>Genres: {% for genre in movieGenres %}{{genre[0]}}{% if not loop.last %}, {% endif %}{% endfor %}</li>
             <li>Country: {{movieDetails[2]}}</li>
             <li>Year: {{movieDetails[3]}}</li>
             <li>Budget: ${{ '{:,}'.format(movieDetails[4]) }}</li>

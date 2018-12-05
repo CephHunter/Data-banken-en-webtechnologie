@@ -1,1 +1,1 @@
-SELECT genre_name FROM genres
+SELECT genre_name, genre_id FROM genres

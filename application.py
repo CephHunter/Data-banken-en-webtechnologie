@@ -47,10 +47,30 @@ def movieDetails(movieID):
     movieGenres = getData('getMovieGenres.sql', movieID)
     reviews = getData('getReviews.sql', movieID)
     user = getLoggedInUser()
-    userHasReview = True if user and [row for row in reviews if user.id == row[4]] else False
+    userHasReview = True if user and [
+        row for row in reviews if user.id == row[4]] else False
     next = request.path
     return render_template('movieDetails.html', user=user, movieDetails=movieDetails,
-                           movieRoles=movieRoles, movieGenres=movieGenres, next=next, reviews=reviews, userHasReview=userHasReview)
+                           movieRoles=movieRoles, movieGenres=movieGenres, next=next,
+                           reviews=reviews, userHasReview=userHasReview)
+
+
+@app.route('/Movie details/Edit/<int:movieID>', methods=['GET', 'POST'])
+@login_required
+def editMovieDetails(movieID):
+    if request.method == 'POST':
+        args = request.form
+        return render_template('test.html', linkParams=args)
+        # return redirect_back('homePage')
+    else:
+        user = getLoggedInUser()
+        next = get_redirect_target()
+        movieDetails = getData('getMovieDetails.sql', movieID)[0]
+        movieRoles = getData('getMovieRoles.sql', movieID)
+        movieGenres = getData('getMovieGenres.sql', movieID)
+        allGenres = getData('getAllGenreNames.sql')
+        return render_template('editMovieDetails.html', next=next, user=user, movieDetails=movieDetails, movieRoles=movieRoles,
+                                movieGenres=movieGenres, allGenres=allGenres)
 
 
 @app.route('/Login')
@@ -59,6 +79,8 @@ def login():
     return render_template('login.html', next=next)
 
 # somewhere to logout
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -104,8 +126,10 @@ def addReview():
     reviewText = request.form['review-text']
     movieID = request.form['movieID']
     user = getLoggedInUser()
-    insertData('insertReview.sql', (movieID, user.id, rating, reviewText, currentTime(), ''))
+    insertData('insertReview.sql', (movieID, user.id,
+                                    rating, reviewText, currentTime(), ''))
     return redirect_back(url_for('homePage'))
+
 
 @app.route('/deleteReview', methods=['POST'])
 @login_required
@@ -115,11 +139,13 @@ def deleteReview():
     getData('deleteReview.sql', user_id, movieID)
     return redirect_back(url_for('homePage'))
 
+
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and \
-           ref_url.netloc == test_url.netloc
+        ref_url.netloc == test_url.netloc
+
 
 def get_redirect_target():
     for target in request.values.get('next'), request.referrer:
@@ -127,6 +153,7 @@ def get_redirect_target():
             continue
         if is_safe_url(target):
             return target
+
 
 def redirect_back(endpoint, **values):
     try:
@@ -150,8 +177,10 @@ def load_user(email):
     return User.get(email)
 
 # handle Unprocessable Entity
+
+
 @app.errorhandler(422)
-def Unprocessable_Entity (e):
+def Unprocessable_Entity(e):
     return Response('<p>The request was well-formed but was unable to be followed due to semantic errors.</p>')
 
 
