@@ -40,7 +40,7 @@ def insertData(scriptname, *args):
     db.commit()
     db.close()
 
-def getData(scriptname, *args):
+def getData(scriptname, *args, raw=None):
     """Execute a single select SQL query and return the result.
     
     Arguments:
@@ -50,7 +50,19 @@ def getData(scriptname, *args):
     db = sqlite3.connect(databaseFile)
     cursor = db.cursor()
     script = open(sqlpath + scriptname, "r").read()
-    res = cursor.execute(script, args).fetchall()
+    if raw:
+        res = cursor.execute(script, raw).fetchall()
+    else:
+        res = cursor.execute(script, args).fetchall()
+    db.commit()
+    db.close()
+    return res
+
+def getNextID(tableName, idname):
+    db = sqlite3.connect(databaseFile)
+    cursor = db.cursor()
+    sql = 'SELECT max({})+1 FROM {}'.format(idname, tableName)
+    res = cursor.execute(sql).fetchone()[0]
     db.commit()
     db.close()
     return res

@@ -1,16 +1,37 @@
-<div class="container">
-    {# {% if linkParams %}
-        <table border = 1>
-            {% for key, value in linkParams %}
-                <tr>
-                    <th> {{ key }} </th>
-                    <td> {{ value }} </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %} #}
-    {{linkParams}}
-    <hr>
-    {{linkParams['role[]']}}
-</div> 
-
+{# {% if linkParams %}
+    <table border = 1>
+        {% for key, value in linkParams %}
+            <tr>
+                <th> {{ key }} </th>
+                <td> {{ value }} </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %} #}
+{{linkParams}}
+<hr>
+{{title}}
+<hr>
+{{description}}
+<hr>
+{{genres}}
+<hr>
+{{releaseYear}}
+<hr>
+{{country}}
+<hr>
+{{budget}}
+<hr>
+{{actorIDs}}
+<hr>
+{{actorRoles}}
+<hr>
+{{actorNames}}
+<hr>
+{{actorGenders}}
+<hr>
+{{actorCountries}}
+<hr>
+{{actorBirthyear}}
+<hr>
+{{actorDeceaseyear}}

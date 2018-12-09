@@ -11,7 +11,7 @@ if __name__ == "__main__":
     filmdata = open(rootpath + "FilmData.json").read()
     filmdata = json.loads(filmdata)
     for movie in filmdata:
-        insertData("insertMovie.sql", (movie["title"], movie["description"],
+        insertData("insertMovie.sql", (None, movie["title"], movie["description"],
                                        movie["country"], movie["date_of_release"], movie["budget"], movie["image"]))
         movie_id = getData("getMovieID.sql", movie["title"])[0][0]
 
