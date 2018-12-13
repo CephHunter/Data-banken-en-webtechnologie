@@ -1,4 +1,5 @@
-from flask import Flask, redirect, request, render_template, send_from_directory, url_for, Response, abort, flash, session
+from flask import Flask, redirect, request, render_template, send_from_directory, url_for, \
+    Response, abort, flash, session
 from utils import runScript, insertData, getData, User, getLoggedInUser, currentTime, getNextID
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from urllib.parse import urlparse, urljoin
@@ -66,15 +67,17 @@ def editMovieDetails(movieID):
     else:
         movieDetails = ''
     movieRoles = getData('getMovieRoles.sql', movieID)
-    movieGenres = [genre[0] for genre in getData('getMovieGenres.sql', movieID)]
+    movieGenres = [genre[0]
+                   for genre in getData('getMovieGenres.sql', movieID)]
     allGenres = getData('getAllGenreNames.sql')
-    return render_template('editMovieDetails.html', next=next, user=user, movieDetails=movieDetails, movieRoles=movieRoles,
-                                movieGenres=movieGenres, allGenres=allGenres)
+    return render_template('editMovieDetails.html', next=next, user=user, movieDetails=movieDetails,
+                            movieRoles=movieRoles, movieGenres=movieGenres, allGenres=allGenres)
+
 
 @app.route('/addMovie')
 @login_required
 def addMovie():
-    user = getLoggedInUser()
+    # user = getLoggedInUser()
     next = get_redirect_target()
     nextMovieID = getNextID('movies', 'movie_id')
     return redirect('/Movie details/Edit/{}?next={}'.format(nextMovieID, next))
@@ -92,7 +95,8 @@ def processEditMovieDetails():
     country = args['country']
     budget = args['budget']
     nextactorID = getNextID('actors', 'actor_id')
-    actorIDs = [(id or (nextactorID + i)) for i, id in enumerate(args.getlist('actor_id'))]
+    actorIDs = [(id or (nextactorID + i))
+                for i, id in enumerate(args.getlist('actor_id'))]
     actorRoles = args.getlist('role')
     actorNames = args.getlist('actor-name')
     actorGenders = args.getlist('gender')
@@ -101,10 +105,12 @@ def processEditMovieDetails():
     actorDeceaseyear = args.getlist('deceaseyear')
 
     if movieID:
-        insertData('updateMovie.sql', (title, description, country, releaseYear, budget, '', movieID))
+        insertData('updateMovie.sql', (title, description,
+                                       country, releaseYear, budget, '', movieID))
     else:
         movieID = getNextID('movies', 'movie_id')
-        insertData('insertMovie.sql', (movieID, title, description, country, releaseYear, budget, ''))
+        insertData('insertMovie.sql', (movieID, title,
+                                       description, country, releaseYear, budget, ''))
 
     # Update actors
     data = [{
@@ -114,30 +120,27 @@ def processEditMovieDetails():
             'country': actorCountries[i],
             'year_of_birth': actorBirthyear[i],
             'year_of_decease': actorDeceaseyear[i]
-        } for i in range(0, len(actorIDs))
-    ]
+            } for i in range(0, len(actorIDs))
+            ]
     insertData('updateActors_1.sql', *data)
     insertData('updateActors_2.sql', *data)
 
-    #update roles
+    # update roles
     data = [(
             movieID,
             actorRoles[i],
             actorIDs[i]
-        ) for i in range(0, len(actorIDs))
-    ]
+            ) for i in range(0, len(actorIDs))
+            ]
     getData('updateRoles_1.sql', movieID)
     insertData('updateRoles_2.sql', *data)
 
     # Update movie genres
     getData('updateGenres_1.sql', movieID)
-    insertData('updateGenres_2.sql', *[(movieID, genres[i]) for i in range(0, len(genres))])
+    insertData('updateGenres_2.sql', *
+               [(movieID, genres[i]) for i in range(0, len(genres))])
 
     return redirect_back('homePage')
-    # return render_template('test.html', linkParams=args, title=title, description=description, genres=genres,
-        # releaseYear=releaseYear, country=country, budget=budget, actorIDs=actorIDs, actorRoles=actorRoles, actorNames=actorNames,
-        # actorGenders=actorGenders, actorCountries=actorCountries, actorBirthyear=actorBirthyear,
-        # actorDeceaseyear=actorDeceaseyear)
 
 
 @app.route('/Login')
@@ -203,6 +206,15 @@ def deleteReview():
     user_id = request.form['user_id']
     getData('deleteReview.sql', user_id, movieID)
     return redirect_back(url_for('homePage'))
+
+
+@app.route('/UserSearch')
+def userSearch():
+    args = request.args
+    searchTerm = '%{}%'.format(args.get('aliasSearch'))
+    searchResult = getData('searchUsers.sql', searchTerm)
+    # print(genrePrams, file=sys.stderr)
+    return render_template('searchUsers.html', user=getLoggedInUser(), searchResult=searchResult)
 
 
 def is_safe_url(target):
