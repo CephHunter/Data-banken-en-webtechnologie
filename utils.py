@@ -68,7 +68,7 @@ def getNextID(tableName, idname):
     return res
 
 class User(UserMixin):
-    def __init__(self, id, alias, email, password, birthday, gender, country):
+    def __init__(self, id, alias, email, password, birthday, gender, country, is_authenticated):
         self.id = id
         self.alias = alias
         self.email = email
@@ -76,6 +76,7 @@ class User(UserMixin):
         self.birthday = birthday
         self.gender = gender
         self.country = country
+        self.is_authenticated = is_authenticated
 
     def get_id(self):
         return self.email
@@ -83,13 +84,21 @@ class User(UserMixin):
     def __repr__(self):
         return 'id:%d, email:%s, alias:%s' % (self.id, self.email, self.alias)
 
+    @property
+    def is_authenticated(self):
+        return self.__is_authenticated
+
+    @is_authenticated.setter
+    def is_authenticated(self, is_authenticated):
+        self.__is_authenticated = is_authenticated
+
     @classmethod
     def get(cls, email):
         userData = getData('getUserData.sql', email)
         if userData:
             userData = userData[0]
             return cls(userData[0], userData[1], userData[2], userData[3],
-                        userData[4], userData[5], userData[6])
+                        userData[4], userData[5], userData[6], True)
         return None
 
 
@@ -97,7 +106,8 @@ def getLoggedInUser():
     try:
         return User.get(session['user_id'])
     except:
-        return None
+        return User('', '', '', '', '', '', '', False)
+
 
 def currentTime():
     now = datetime.utcnow()

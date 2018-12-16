@@ -1,0 +1,67 @@
+{% extends "boilerplates/basePage.html" %}
+{% block title %}User search{% endblock %}
+{% block body %}
+    {% include "boilerplates/pageHeader.html" %}
+    <div class="container">
+        <h1>{{user.alias}}<span class="user-id">{{user.id}}</span></h1>
+        <h2>Friends</h2>
+        {% for friend in friendRequests %}
+            {% if friend[5] and not friend[6] %}
+                <div class="card m-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{friend[1] or friend[3]}}<span class="user-id">{{friend[0] or friend[2]}}</span></h5>
+                        {% if friend[0] %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-danger mt-2">Remove friend</button>
+                                <input type="hidden" name="user-id" value="{{friend[0]}}">
+                                <input type="hidden" name="action" value="remove-friend2">
+                            </form>
+                        {% else %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-danger mt-2">Remove friend</button>
+                                <input type="hidden" name="user-id" value="{{friend[2]}}">
+                                <input type="hidden" name="action" value="remove-friend">
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <h2>Friend requests</h2>
+        {% for friend in friendRequests %}
+            {% if friend[0] and not (friend[5] or friend[6]) %}
+                <div class="card m-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{friend[1] or friend[3]}}<span class="user-id">{{friend[0] or friend[2]}}</span></h5>
+                        <form method="POST">
+                            <button type="submit" class="btn btn-success mt-2">Accept friend request</button>
+                            <input type="hidden" name="user-id" value="{{friend[0]}}">
+                            <input type="hidden" name="action" value="accept">
+                        </form>
+                        <form method="POST">
+                            <button type="submit" class="btn btn-danger mt-2">Cancel friend request</button>
+                            <input type="hidden" name="user-id" value="{{friend[0]}}">
+                            <input type="hidden" name="action" value="remove-friend2">
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <h2>Pending requests</h2>
+        {% for friend in friendRequests %}
+            {% if friend[2] and not (friend[5] or friend[6]) %}
+                <div class="card m-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{friend[1] or friend[3]}}<span class="user-id">{{friend[0] or friend[2]}}</span></h5>
+                        <form method="POST">
+                            <button type="submit" class="btn btn-danger mt-2">Remove friend request</button>
+                            <input type="hidden" name="user-id" value="{{friend[2]}}">
+                            <input type="hidden" name="action" value="remove-request">
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {{friendRequests}}
+{% endblock %}

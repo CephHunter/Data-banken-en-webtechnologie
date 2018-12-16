@@ -4,5 +4,5 @@ UPDATE movies SET
     country = ?,
     releaseyear = ?,
     budget = ?,
-    image = ?
+    image = COALESCE(?, (SELECT image FROM movies WHERE movie_id=?))
 WHERE movie_id = ?

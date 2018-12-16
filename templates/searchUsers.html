@@ -1,9 +1,10 @@
 {% extends "boilerplates/basePage.html" %}
 {% block title %}User search{% endblock %}
+{% block head %}<script type="text/javascript" src="/js/userSearch.js"></script>{% endblock %}
 {% block body %}
     {% include "boilerplates/pageHeader.html" %}
     <div class="container">
-        <form id="userSearch" method="GET">
+        <form method="GET">
             <h2>Search</h2>
             <div class="form-group">
                 <label for="aliasSearch">Search by alias</label>
@@ -13,20 +14,64 @@
         </form>
     </div>
     <div class="container mt-3">
-        <div class="d-flex flex-wrap">
-            {% for user in searchResult %}
-                <div class="card m-3">
-                    <div class="image-box">
-                        <img class="card-img-top" alt="{{user[3]}}" src="{{user[3]}}">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{user[1]}}</h5>
-                        <p class="card-text">{{user[2]}}</p>
-                        <a href="/Movie details/{{user[0]}}" class="btn btn-primary">View details</a>
-                    </div>
+        {% for userObj in searchResult %}
+            <div class="card m-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{userObj[1]}}<span class="user-id">{{userObj[0]}}</span></h5>
+                    {% if user and user.is_authenticated %}
+                        {% if userObj[11] %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-info mt-2">Send friend request</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="send">
+                            </form>
+                        {% elif userObj[8] %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-warning mt-2">Resend friend request</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="send">
+                            </form>
+                        {% elif userObj[10] %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-danger mt-2">Remove friend</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="remove-friend2">
+                            </form>
+                        {% elif userObj[7] %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-danger mt-2">Remove friend</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="remove-friend">
+                            </form>
+                        {% elif userObj[9] %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-success mt-2">Accept friend request</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="accept">
+                            </form>
+                            <form method="POST">
+                                <button type="submit" class="btn btn-danger mt-2">Cancel friend request</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="remove-friend2">
+                            </form>
+                        {% elif userObj[6] %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-danger mt-2">Remove friend request</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="remove-request">
+                            </form>
+                        {% else %}
+                            <form method="POST">
+                                <button type="submit" class="btn btn-info mt-2">Send friend request</button>
+                                <input type="hidden" name="user-id" value="{{userObj[0]}}">
+                                <input type="hidden" name="action" value="send">
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <a class="btn btn-success" href="/Login" role="button">Send friend request</a>
+                    {% endif %}
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
-    {{searchResult}}
 {% endblock %}

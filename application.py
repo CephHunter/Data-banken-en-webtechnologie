@@ -71,13 +71,12 @@ def editMovieDetails(movieID):
                    for genre in getData('getMovieGenres.sql', movieID)]
     allGenres = getData('getAllGenreNames.sql')
     return render_template('editMovieDetails.html', next=next, user=user, movieDetails=movieDetails,
-                            movieRoles=movieRoles, movieGenres=movieGenres, allGenres=allGenres)
+                           movieRoles=movieRoles, movieGenres=movieGenres, allGenres=allGenres)
 
 
 @app.route('/addMovie')
 @login_required
 def addMovie():
-    # user = getLoggedInUser()
     next = get_redirect_target()
     nextMovieID = getNextID('movies', 'movie_id')
     return redirect('/Movie details/Edit/{}?next={}'.format(nextMovieID, next))
@@ -106,39 +105,41 @@ def processEditMovieDetails():
 
     if movieID:
         insertData('updateMovie.sql', (title, description,
-                                       country, releaseYear, budget, '', movieID))
+                                       country, releaseYear, budget, None, movieID, movieID))
     else:
         movieID = getNextID('movies', 'movie_id')
         insertData('insertMovie.sql', (movieID, title,
                                        description, country, releaseYear, budget, ''))
 
     # Update actors
-    data = [{
+    data = [
+        {
             'actor_id': actorIDs[i],
             'name': actorNames[i],
             'gender': actorGenders[i],
             'country': actorCountries[i],
             'year_of_birth': actorBirthyear[i],
             'year_of_decease': actorDeceaseyear[i]
-            } for i in range(0, len(actorIDs))
-            ]
+        } for i in range(0, len(actorIDs))
+    ]
     insertData('updateActors_1.sql', *data)
     insertData('updateActors_2.sql', *data)
 
     # update roles
-    data = [(
+    data = [
+        (
             movieID,
             actorRoles[i],
             actorIDs[i]
-            ) for i in range(0, len(actorIDs))
-            ]
+        ) for i in range(0, len(actorIDs))
+    ]
     getData('updateRoles_1.sql', movieID)
     insertData('updateRoles_2.sql', *data)
 
     # Update movie genres
     getData('updateGenres_1.sql', movieID)
-    insertData('updateGenres_2.sql', *
-               [(movieID, genres[i]) for i in range(0, len(genres))])
+    insertData('updateGenres_2.sql',
+               *[(movieID, genres[i]) for i in range(0, len(genres))])
 
     return redirect_back('homePage')
 
@@ -184,6 +185,8 @@ def processRegister():
         return Response('<p>User already exists.</p>')
     insertData('insertUser.sql', (username, email,
                                   password, birdthday, gender, country))
+    user = load_user(email)
+    login_user(user)
     return redirect(url_for('homePage'))
 
 
@@ -208,13 +211,126 @@ def deleteReview():
     return redirect_back(url_for('homePage'))
 
 
-@app.route('/UserSearch')
+@app.route('/UserSearch', methods=['GET', 'POST'])
 def userSearch():
+    user = getLoggedInUser()
+    if request.method == 'POST' and user.is_authenticated:
+        if request.form['action'] == 'send':
+            insertData(
+                'deleteFriendRequest.sql',
+                {
+                    'sender': request.form['user-id'],
+                    'receiver': user.id
+                }
+            )
+            insertData(
+                'updateFriendRequest.sql',
+                {
+                    'sender': user.id,
+                    'receiver': request.form['user-id'],
+                    'send_date': currentTime(),
+                    'date_accepted': '',
+                    'date_canceled': ''
+                }
+            )
+        elif request.form['action'] == 'remove-request':
+            insertData(
+                'deleteFriendRequest.sql',
+                {
+                    'sender': user.id,
+                    'receiver': request.form['user-id']
+                }
+            )
+        elif request.form['action'] == 'remove-friend':
+            insertData(
+                'updateFriendRequest.sql',
+                {
+                    'sender': user.id,
+                    'receiver': request.form['user-id'],
+                    'send_date': None,
+                    'date_accepted': None,
+                    'date_canceled': currentTime()
+                }
+            )
+        elif request.form['action'] == 'remove-friend2':
+            insertData(
+                'updateFriendRequest.sql',
+                {
+                    'sender': request.form['user-id'],
+                    'receiver': user.id,
+                    'send_date': None,
+                    'date_accepted': None,
+                    'date_canceled': currentTime()
+                }
+            )
+        elif request.form['action'] == 'accept':
+            insertData(
+                'updateFriendRequest.sql',
+                {
+                    'sender': request.form['user-id'],
+                    'receiver': user.id,
+                    'send_date': None,
+                    'date_accepted': currentTime(),
+                    'date_canceled': None
+                }
+            )
     args = request.args
     searchTerm = '%{}%'.format(args.get('aliasSearch'))
-    searchResult = getData('searchUsers.sql', searchTerm)
-    # print(genrePrams, file=sys.stderr)
-    return render_template('searchUsers.html', user=getLoggedInUser(), searchResult=searchResult)
+    searchResult = getData('searchUsers.sql', raw={'search': searchTerm, 'self_id': user.id})
+    return render_template('searchUsers.html', user=user, searchResult=searchResult)
+
+
+@app.route('/userProfile/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def userProfile(user_id):
+    user = getLoggedInUser();
+    if user_id == user.id:
+        if request.method == 'POST':
+            if request.form['action'] == 'remove-friend':
+                insertData(
+                    'updateFriendRequest.sql',
+                    {
+                        'sender': user.id,
+                        'receiver': request.form['user-id'],
+                        'send_date': None,
+                        'date_accepted': None,
+                        'date_canceled': currentTime()
+                    }
+                )
+            elif request.form['action'] == 'remove-friend2':
+                insertData(
+                    'updateFriendRequest.sql',
+                    {
+                        'sender': request.form['user-id'],
+                        'receiver': user.id,
+                        'send_date': None,
+                        'date_accepted': None,
+                        'date_canceled': currentTime()
+                    }
+                )
+            elif request.form['action'] == 'accept':
+                insertData(
+                    'updateFriendRequest.sql',
+                    {
+                        'sender': request.form['user-id'],
+                        'receiver': user.id,
+                        'send_date': None,
+                        'date_accepted': currentTime(),
+                        'date_canceled': None
+                    }
+                )
+            elif request.form['action'] == 'remove-request':
+                insertData(
+                    'deleteFriendRequest.sql',
+                    {
+                        'sender': user.id,
+                        'receiver': request.form['user-id']
+                    }
+                )
+        friendRequests = getData('getFriendRequests.sql', raw={'user_id': user.id})
+        return render_template('userProfile.html', user=user, friendRequests=friendRequests)
+    else:
+        return redirect(url_for('homePage'))
 
 
 def is_safe_url(target):
@@ -259,6 +375,11 @@ def load_user(email):
 @app.errorhandler(422)
 def Unprocessable_Entity(e):
     return Response('<p>The request was well-formed but was unable to be followed due to semantic errors.</p>')
+
+
+@app.errorhandler(403)
+def forbidden(e):
+    return Response('<p>Read access forbidden.</p>')
 
 
 @app.route('/css/<path:path>')

@@ -1,0 +1,1 @@
+DELETE FROM friendships WHERE sender_user_id = :sender AND receiver_user_id = :receiver

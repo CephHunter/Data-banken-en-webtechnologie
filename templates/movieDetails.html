@@ -53,7 +53,7 @@
     </div>
     <div class="container">
         <h2>Reviews</h2>
-        {% if user.is_authenticated and not userHasReview %}
+        {% if user and user.is_authenticated and not userHasReview %}
             <p>
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#add-review" aria-expanded="false">
                     Add Review
@@ -120,12 +120,5 @@
                 {% endif %}
             </div>
         {% endfor %}
-
-        {{reviews}}
-    </div>
-    <div class="container">
-        {{movieDetails}}
-        <br>
-        {{movieRoles}}
     </div>
 {% endblock %}

@@ -7,3 +7,4 @@ WHERE title LIKE ? AND movie_id IN (
         SELECT genre_id FROM genres WHERE genre_name IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     )
 )
+LIMIT 50
