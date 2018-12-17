@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS friendships;
 
 CREATE TABLE IF NOT EXISTS movies (
     movie_id        INTEGER NOT NULL PRIMARY KEY,
-    title           TEXT NOT NULL UNIQUE,
+    title           TEXT NOT NULL,
     [description]   TEXT NOT NULL,
     country         TEXT NOT NULL,
     releaseyear     INTEGER NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS actors (
 CREATE TABLE IF NOT EXISTS users (
     user_id       INTEGER NOT NULL PRIMARY KEY,
     alias         TEXT NOT NULL,
-    email         TEXT NOT NULL,
+    email         TEXT NOT NULL UNIQUE,
     [password]    TEXT NOT NULL,
     date_of_birth TEXT NOT NULL,
     gender        TEXT NOT NULL,
